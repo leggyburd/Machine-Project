@@ -10,6 +10,7 @@ Version: <0.0.2>
 #include <stdio.h>
 #include "items.h"
 
+
 //Input Password for Seller
 void 
 passwordChecker()
@@ -23,7 +24,7 @@ passwordChecker()
 
     if (password == 123456)
     {
-        viewInventory(); //temporary
+        maintenanceMenu();
     }
 
     else
@@ -32,15 +33,51 @@ passwordChecker()
     }
 }
 
+void
+maintenanceMenu() 
+{
+    int userInput;
+
+    printf("-------------------------------------------\n");
+    printf("\nWhere would you like to go?\n1: View Inventory\n2: Modify Price\n3: Stock/Restock Items\n4: Cash Register\n5: Main Menu");
+    scanf("%d", &userInput);
+
+    switch(userInput)
+    {
+        case 1:
+        viewInventory();
+
+        case 2:
+        modifyPrice(itemNumber, itemNames, itemPrice, stockLeft);
+        break;
+
+        case 3:
+        //restockItems();
+
+        case 4:
+        //cashRegister();
+
+        case 5:
+        main();
+
+        default:
+        printf("Invalid input. Please enter the correct number.");
+    }
+
+}
+
 //Inventory Features
 void
 viewInventory()
 {
-    viewItems();
+    int i; 
+    for (i = 0; i < 8; i++)
+    {
+        printf("-------------------------------------------\n");
+        printf("%-4d %-15s %10.2f %10d\n", itemNumber[i], itemNames[i], itemPrice[i], stockLeft[i]); //fix stockleft to display "unavailable"
+    }
 }
 
-
-/*FUCKING FIX THIS TOM*/
 
 void
 modifyPrice(int itemNumber[], char itemNames[], float itemPrice[], int stockLeft[])
@@ -48,6 +85,7 @@ modifyPrice(int itemNumber[], char itemNames[], float itemPrice[], int stockLeft
     int itemNumbers;
     float newPrice;
     int pricesDecision;
+    int userDecision;
 
     printf("\nWould you like to modify the prices?\n1: Yes\n2: No\n");
     scanf("%d", &pricesDecision);
@@ -59,11 +97,11 @@ modifyPrice(int itemNumber[], char itemNames[], float itemPrice[], int stockLeft
 
         if (itemNumbers >= 1 && itemNumbers <= 8)
         {
-            printf("Enter the new price: ", &itemNumbers);
+            printf("Enter the new price: ", itemNumbers);
             scanf("%f", &newPrice);
 
             itemPrice[itemNumbers - 1] = newPrice;
-            printf("item %d is now %.2f\n", itemNumbers, newPrice);
+            printf("item %d is now %.2f\n", itemNumbers, newPrice);    
         } 
         else 
         {
@@ -71,12 +109,21 @@ modifyPrice(int itemNumber[], char itemNames[], float itemPrice[], int stockLeft
         }
 
     }
-    int i;
 
-    for (i = 0; i < 8; i++)
+    viewInventory();
+
+    printf("\nWould you like to go back to the main menu?\n1: Yes\n2: No\n");
+    scanf("%d", userDecision);
+}
+
+goBack()
+{
+    int userDecision;
+    printf("\nWould you like to go back to the main menu?\n1: Yes\n2: No\n");
+    scanf("%d", userDecision);
+
+    if (userDecision == 1)
     {
-        printf("-------------------------------------------\n");
-        printf("%-4d %-15s %10.2f %10d\n", itemNumber[i], itemNames[i], itemPrice[i], stockLeft[i]); //fix stockleft to display "unavailable"
+        main();
     }
-   
 }
