@@ -198,15 +198,23 @@ viewItems()
     int itemNumber[8] = {1, 2, 3, 4, 5, 6, 7, 8};
     char itemNames[8][11] = {"hotdog", "longganisa", "bacon", "sausage", "tapa", "tocino", "rice", "egg"};
     float itemPrice[8] = {9.50, 20.75, 12.0, 35.0, 22.50, 18.0, 15.0, 8.0};
-    int stockLeft[8] = {30, 30, 30, 30, 30, 30, 30, 30};
+    int stockLeft[8] = {30, 30, 30, 30, 30, 30, 30, 0};
 
     int i; 
     for (i = 0; i < 8; i++)
     {
         printf("-------------------------------------------\n");
-        printf("%-4d %-15s %10.2f %10d\n", itemNumber[i], itemNames[i], itemPrice[i], stockLeft[i]); //fix stockleft to display "unavailable"
-    }
+        printf("%-4d %-15s %10.2f", itemNumber[i], itemNames[i], itemPrice[i]); 
 
+        if (stockLeft[i] == 0)
+        {
+            printf("%10s\n", "This item is unavailable.");
+        }
+        else 
+        {
+            printf("%10d\n", stockLeft[i]);
+        }
+    }
 }
 
 //Select Items
